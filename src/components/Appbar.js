@@ -19,7 +19,7 @@ import { Link } from '@mui/material';
 const pages = [
     {
         pageName: 'Courses',
-        url: '#'
+        url: '/courses'
     },
     {
         pageName: 'Exam',
@@ -42,6 +42,14 @@ const options = [{
 {
     pageName: 'Dashboard',
     url: '/dashboard'
+},
+{
+    pageName: 'Payment',
+    url:'/payment'
+},
+{
+    pageName: 'Setting',
+    url: '#'
 },
 {
     pageName: 'Login',
@@ -74,7 +82,7 @@ const ResponsiveAppBar = () => {
     };
 
     return (
-        <AppBar position="static" color='info'>
+        <AppBar position="sticky" color='info'>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
@@ -169,7 +177,7 @@ const ResponsiveAppBar = () => {
 
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
+                        <Tooltip title="Open options">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                             </IconButton>

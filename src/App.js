@@ -6,7 +6,8 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Payment from './pages/payment';
 import Subpack from './pages/packageList';
-
+import Courses from './pages/Courses'
+import CreateCourses from './pages/Create_course'
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/create-courses" element={<CreateCourses />} />
+        <Route path="/courses" element={<Courses />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/subpack" element={<Subpack />} />
       </Routes>

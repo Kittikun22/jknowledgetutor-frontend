@@ -1,6 +1,5 @@
 import Axios from 'axios'
 import { useState } from 'react'
-import Footer from '../components/Footer';
 import Appbar from '../components/Appbar'
 import { FaUserFriends } from 'react-icons/fa'
 import { GiBookmarklet } from 'react-icons/gi'
@@ -10,22 +9,26 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input'
 
 
-
-function Management() {
+function Dashboard() {
     const [topic, setTopic] = useState('');
-
     const [userList, setUserList] = useState([]);
     const [newAccess_level, setNewAccess_level] = useState(0);
-
     const [courseList, setCourseList] = useState([]);
 
+    const openUser = () => {
+        getUsers();
+        setCourseList([]);
+    }
 
+    const openCourse = () => {
+        getCourses();
+        setUserList([]);
+    }
 
     const getUsers = () => {
         Axios.get('http://localhost:3001/users').then(setTopic('รายชื่อทั้งหมด')).then((res) => {
@@ -60,34 +63,33 @@ function Management() {
     return (
         <>
             <Appbar />
-            <Stack spacing={2} direction="row" sx={{ p: 5, justifyContent: 'center' }}>
-                <Button variant='outlined' color="success" onClick={getUsers}><FaUserFriends style={{ width: "150px", height: "150px" }} /></Button>
-                <Button variant='outlined' color="success" onClick={getCourses}><GiBookmarklet style={{ width: "150px", height: "150px" }} /></Button>
+            <Stack spacing={2} direction="row" sx={{ p:2, justifyContent: 'center' }}>
+                <Button variant='outlined' color="success" onClick={openUser}><FaUserFriends style={{ width: "150px", height: "150px" }} /></Button>
+                <Button variant='outlined' color="success" onClick={openCourse}><GiBookmarklet style={{ width: "150px", height: "150px" }} /></Button>
             </Stack>
-
-            <h1 className='text-center'>{topic}</h1>
+            <Box sx={{ textAlign: 'center' }}>
+                <h1 className='text-center'>{topic}</h1>
+            </Box>
             {userList.map((val, key) => {
                 return (
-                    <Card sx={{ minWidth: 275, m: 2, border: 'px black' }} key={key}>
-                        <CardContent>
+                    <Card sx={{ minWidth: 275, m: 2, }} elevation={2} key={key}>
+                        <CardContent >
                             <Typography variant="h5" component="div">
                                 ID : {val.id}
                             </Typography>
-                            <Typography variant="body2">
+                            <Typography>
                                 Tel : {val.tel}
                                 <br />
                                 Access_level : {val.access_level}
+                                <Stack direction="row" spacing={2}>
+                                    <Input placeholder="Update access level" onChange={(e) => { setNewAccess_level(e.target.value).then(e.target.value="") }} />
+                                    <Button variant="outlined" startIcon={<UpdateIcon />} color="warning" onClick={() => { updateAccesslevel(val.id) }}>
+                                        Update
+                                    </Button>
+                                    <DeleteAlertDialog userid={val.id} usertel={val.tel} userList={userList} setUserList={setUserList} />
+                                </Stack>
                             </Typography>
                         </CardContent>
-                        <CardActions>
-                            <Stack direction="row" spacing={2}>
-                                <Input placeholder="Update access level" onChange={(e) => { setNewAccess_level(e.target.value) }} />
-                                <Button variant="outlined" startIcon={<UpdateIcon />} color="warning" onClick={() => { updateAccesslevel(val.id) }}>
-                                    Update
-                                </Button>
-                                <DeleteAlertDialog userid={val.id} usertel={val.tel} userList={userList} setUserList={setUserList} />
-                            </Stack>
-                        </CardActions>
                     </Card>
 
                 );
@@ -95,21 +97,22 @@ function Management() {
 
             {courseList.map((val, key) => {
                 return (
-                    <div className="container">
-                        <div className="course card mb-3" key={key}>
-                            <div className="card-body text-left">
-                                <img src={val.courses_pic} style={{ width: "150px", height: "150px" }} alt="" />
-                                <p className="card-text mt-3">Courses Id : {val.courses_id}</p>
-                                <p className="card-text">Courses Name : {val.courses_name}</p>
-                                <p className='card-text'>Access Level : {val.courses_access}</p>
-                            </div>
-                        </div>
-                    </div>
+                    <Stack sx={{ m: 2 }}>
+                        <Card sx={{ minWidth: 275, m: 2, }} elevation={2} key={key}>
+                            <CardContent>
+                                <Typography>
+                                    <Box component='img' src={val.courses_pic} sx={{ justifyContent: 'left' }} /><br/>
+                                    Course ID : {val.courses_id}<br />
+                                    Course Name : {val.courses_name}<br />
+                                    Access_level : {val.courses_access}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Stack>
                 )
             })}
-            <Footer />
         </>
     )
 }
 
-export default Management
+export default Dashboard

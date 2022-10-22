@@ -15,7 +15,7 @@ function Content() {
                         showLoading={true}
                         shift="right"
                         distance="100px" 
-                        shiftDuration={500}/>
+                        shiftDuration={1500}/>
                 </div>
                 <div className="content-r">
                     <h2>Some title</h2>
@@ -38,7 +38,7 @@ function Content() {
                         showLoading={true}
                         shift="left"
                         distance="100px" 
-                        shiftDuration={500}/>
+                        shiftDuration={1500}/>
                 </div>
             </section>
             <section className="content-con">
@@ -49,7 +49,7 @@ function Content() {
                         showLoading={true}
                         shift="right"
                         distance="100px" 
-                        shiftDuration={500}/>
+                        shiftDuration={1500}/>
                 </div>
                 <div className="content-r">
                     <h2>Some title</h2>
