@@ -14,8 +14,8 @@ function Content() {
                         easing="ease-out"
                         showLoading={true}
                         shift="right"
-                        distance="100px" 
-                        shiftDuration={1500}/>
+                        distance="100px"
+                        shiftDuration={1500} />
                 </div>
                 <div className="content-r">
                     <h2>Some title</h2>
@@ -32,24 +32,24 @@ function Content() {
                     </p>
                 </div>
                 <div className="content-l">
-                <Image src={img1} alt=""
+                    <Image src={img1} alt=""
                         duration={500}
                         easing="ease-out"
                         showLoading={true}
                         shift="left"
-                        distance="100px" 
-                        shiftDuration={1500}/>
+                        distance="100px"
+                        shiftDuration={1500} />
                 </div>
             </section>
             <section className="content-con">
                 <div className="content-l">
-                <Image src={img1} alt=""
+                    <Image src={img1} alt=""
                         duration={500}
                         easing="ease-out"
                         showLoading={true}
                         shift="right"
-                        distance="100px" 
-                        shiftDuration={1500}/>
+                        distance="100px"
+                        shiftDuration={1500} />
                 </div>
                 <div className="content-r">
                     <h2>Some title</h2>

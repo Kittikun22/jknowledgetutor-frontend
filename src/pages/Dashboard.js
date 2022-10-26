@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Appbar from '../components/Appbar'
 import { FaUserFriends } from 'react-icons/fa'
 import { GiBookmarklet } from 'react-icons/gi'
@@ -15,6 +15,25 @@ import Input from '@mui/material/Input'
 
 
 function Dashboard() {
+    useEffect(() => {
+        const accessToken = localStorage.getItem('accessToken')
+        Axios.post('http://localhost:3001/authsignin', {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + accessToken
+            }
+        })
+            .then((res) => {
+                if (res.data.status === 'ok') {
+                    console.log('Valid Token');
+                } else {
+                    alert('Invalid Token!, Please login.')
+                    localStorage.removeItem('accessToken')
+                    window.location = '/login'
+                }
+            })
+    }, []);
+
     const [topic, setTopic] = useState('');
     const [userList, setUserList] = useState([]);
     const [newAccess_level, setNewAccess_level] = useState(0);
@@ -52,7 +71,6 @@ function Dashboard() {
             });
     };
 
-
     const getCourses = () => {
         Axios.get('http://localhost:3001/courses').then(setTopic('คอร์สเรียนทั้งหมด')).then((res) => {
             setCourseList(res.data);
@@ -63,7 +81,7 @@ function Dashboard() {
     return (
         <>
             <Appbar />
-            <Stack spacing={2} direction="row" sx={{ p:2, justifyContent: 'center' }}>
+            <Stack spacing={2} direction="row" sx={{ p: 2, justifyContent: 'center' }}>
                 <Button variant='outlined' color="success" onClick={openUser}><FaUserFriends style={{ width: "150px", height: "150px" }} /></Button>
                 <Button variant='outlined' color="success" onClick={openCourse}><GiBookmarklet style={{ width: "150px", height: "150px" }} /></Button>
             </Stack>
@@ -82,7 +100,7 @@ function Dashboard() {
                                 <br />
                                 Access_level : {val.access_level}
                                 <Stack direction="row" spacing={2}>
-                                    <Input placeholder="Update access level" onChange={(e) => { setNewAccess_level(e.target.value).then(e.target.value="") }} />
+                                    <Input placeholder="Update access level" onChange={(e) => { setNewAccess_level(e.target.value).then(e.target.value = "") }} />
                                     <Button variant="outlined" startIcon={<UpdateIcon />} color="warning" onClick={() => { updateAccesslevel(val.id) }}>
                                         Update
                                     </Button>
@@ -97,18 +115,16 @@ function Dashboard() {
 
             {courseList.map((val, key) => {
                 return (
-                    <Stack sx={{ m: 2 }}>
-                        <Card sx={{ minWidth: 275, m: 2, }} elevation={2} key={key}>
+                        <Card sx={{ minWidth: 275, m: 2 }} elevation={2} key={key}>
                             <CardContent>
-                                <Typography>
-                                    <Box component='img' src={val.courses_pic} sx={{ justifyContent: 'left' }} /><br/>
+                                <Typography sx={{alignItems:'center', justifyContent:'center'}}>
+                                    <Box component='img' src={val.courses_pic} sx={{ justifyContent: 'left', width: 240, height: 200 }} /><br />
                                     Course ID : {val.courses_id}<br />
                                     Course Name : {val.courses_name}<br />
                                     Access_level : {val.courses_access}
                                 </Typography>
                             </CardContent>
                         </Card>
-                    </Stack>
                 )
             })}
         </>

@@ -34,31 +34,31 @@ const pages = [
         url: '#'
     }];
 
+    const options = [{
+        pageName: 'Profile',
+        url: '#'
+    },
+    {
+        pageName: 'Dashboard',
+        url: '/dashboard'
+    },
+    {
+        pageName: 'Payment',
+        url:'/payment'
+    },
+    {
+        pageName: 'Setting',
+        url: '#'
+    },
+    {
+        pageName: 'Login',
+        url: '/login'
+    },
+    {
+        pageName: 'Logout',
+        url: '/logout'
+    }]
 
-const options = [{
-    pageName: 'Profile',
-    url: '#'
-},
-{
-    pageName: 'Dashboard',
-    url: '/dashboard'
-},
-{
-    pageName: 'Payment',
-    url:'/payment'
-},
-{
-    pageName: 'Setting',
-    url: '#'
-},
-{
-    pageName: 'Login',
-    url: '/login'
-},
-{
-    pageName: 'Logout',
-    url: '#'
-}]
 
 // const settings = ['Profile', 'Dashboard', 'Login', 'Logout'];
 

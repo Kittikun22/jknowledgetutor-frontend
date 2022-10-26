@@ -6,15 +6,15 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-export default function MultiActionAreaCard({coursesName, coursesDetail}) {
+export default function MultiActionAreaCard({ coursesName, coursesDetail,coursesPic,coursesId }) {
 
     return (
-        <Card sx={{ maxWidth: 240, maxHeight: 360 }} elevation={2}>
-            <CardActionArea>
+        <Card sx={{ maxWidth: 240, minWidth: 200, maxHeight: 360 }} elevation={2}>
+            <CardActionArea href={`/course/${coursesId}`}>
                 <CardMedia
                     component="img"
                     height="140"
-                    image="/images/courses_1.jpg"
+                    image={coursesPic}
                     alt={coursesName}
                 />
                 <CardContent>

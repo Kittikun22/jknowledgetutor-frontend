@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,8 +7,8 @@ import { Button, CardActionArea, CardActions, Stack } from '@mui/material';
 
 
 
-export default function MultiActionAreaCard() {
-    const [packageList, setPackageList] = useState([
+export default function Subpack_List() {
+    const packageList = [
         {
             id: 1,
             name: 'Package 3 Month. 1,500 BATH',
@@ -21,7 +21,7 @@ export default function MultiActionAreaCard() {
             detail: 'แพ็คเกจคอร์สเรียนออนไลน์ 6 เดือน สามารถเข้าเรียนได้ทุกเนื้อหาทุกรายวิชาได้อย่างไม่จำเป็นภายในระยะเวลา 6 เดือนเต็ม',
             amount: 2500
         }
-    ]);
+    ];
     return (
         <>
             <Stack

@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Appbar from '../components/Appbar'
-import CoursesContent from '../components/CoursesList'
-import Axios from 'axios'
 import LoadingScreen from 'react-loading-screen'
+import CoursesContent from '../components/CoursesContent';
+import Axios from 'axios'
+import { useParams } from 'react-router-dom';
 
-function Courses() {
+function CoursesContents() {
 
+  const { courseId } = useParams();
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     setLoading(true);
@@ -38,10 +41,9 @@ function Courses() {
         textColor="#676767"
         logoSrc="http://localhost:3000/static/media/Jknowledge-Logo.18250765f4f4ae91679a.webp"
         text="" />
-      <CoursesContent />
+      <CoursesContent courseId={courseId}/>
     </>
-
   )
 }
 
-export default Courses
+export default CoursesContents

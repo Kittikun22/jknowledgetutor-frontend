@@ -29,71 +29,72 @@ function Login() {
             return;
         }
         setOpen(false);
-        // window.location='/courses'
-    };
+        if (statusColor === 'success'){
+            window.location = '/courses'
+        }
+};
 
 
-    const Signin = (e) => {     
-        e.preventDefault();
-        Axios.post("http://localhost:3001/signin", {
-            tel: userTel,
-            password: userPwd,
-        }).then((res) => {
-            try {
-                if (res.data.status === 'ok') {
-                    console.log(res);
-                    setLoginStatus('Login success. id :' + res.data.message[0].id + ', tel : ' + res.data.message[0].tel)
-                    setStatusColor('success')
-                    setOpen(true)
-                    // localStorage.setItem('user', JSON.stringify(res.data.message[0]));
-                    localStorage.setItem('accessToken', res.data.token);
-                } else {
-                    console.log(res);
-                    setLoginStatus("Login failed. " + res.data.message);
-                    setStatusColor('error')
-                    setOpen(true)
-                }
-            } catch (error) {
-                console.log(error);
+const Signin = (e) => {
+    e.preventDefault();
+    Axios.post("http://localhost:3001/signin", {
+        tel: userTel,
+        password: userPwd,
+    }).then((res) => {
+        try {
+            if (res.data.status === 'ok') {
+                console.log(res);
+                setLoginStatus('Login success. id :' + res.data.message[0].id + ', tel : ' + res.data.message[0].tel)
+                setStatusColor('success')
+                setOpen(true)
+                localStorage.setItem('accessToken', res.data.token);
+            } else {
+                console.log(res);
+                setLoginStatus("Login failed. " + res.data.message);
+                setStatusColor('error')
+                setOpen(true)
             }
-        });
-    };
+        } catch (error) {
+            console.log(error);
+        }
+    });
+};
 
 
-    return (
-        <>
-            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-                <Alert onClose={handleClose} severity={statusColor} sx={{ width: '100%', mt:'2.5rem' }}>
-                    {loginStatus}
-                </Alert>
-            </Snackbar>
+return (
+    <>
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+            <Alert onClose={handleClose} severity={statusColor} sx={{ width: '100%', mt: '2.5rem' }}>
+                {loginStatus}
+            </Alert>
+        </Snackbar>
 
-            <Stack spacing={2} sx={{ p: 5 }}>
-                <Box sx={{ textAlign: 'center' }} component='form'>
-                    <h1>เข้าสู่ระบบ</h1>
-                    <Box sx={{ mb: 2 }}>
-                        <TextField sx={{ width: '275px' }} type="text" size='small' label="เบอร์โทรศัพท์" variant="outlined" onChange={(e) => { setUserTel(e.target.value) }} />
-                    </Box>
-                    <Box sx={{ mb: 2 }}>
-                        <TextField sx={{ width: '275px' }} type="password" size='small' label="รหัสผ่าน" variant="outlined" onChange={(e) => { setUserPwd(e.target.value) }} />
-                    </Box>
-                    <Box sx={{ mb: 2 }}>
-                        <FormControlLabel
-                            value="rememberMe"
-                            control={<Checkbox />}
-                            label="Remember me"
-                            labelPlacement="end"
-                        />
-                    </Box>
-                    <Box sx={{ mb: 2 }}>
-                        <Button type='submit' variant="contained" color='success' startIcon={<LoginIcon />} onClick={Signin} >
-                            เข้าสู่ระบบ
-                        </Button>
-                    </Box>
+        <Stack spacing={2} sx={{ p: 5 }}>
+            <Box sx={{ textAlign: 'center' }} component='form'>
+                <h1>เข้าสู่ระบบ</h1>
+                <Box sx={{ mb: 2 }}>
+                    <TextField sx={{ width: '275px' }} type="text" size='small' label="เบอร์โทรศัพท์" variant="outlined" onChange={(e) => { setUserTel(e.target.value) }} />
                 </Box>
-            </Stack>
-        </>
-    )
+                <Box sx={{ mb: 2 }}>
+                    <TextField sx={{ width: '275px' }} type="password" size='small' label="รหัสผ่าน" variant="outlined" onChange={(e) => { setUserPwd(e.target.value) }} />
+                </Box>
+                <Box sx={{ mb: 2 }}>
+                    <FormControlLabel
+                        value="rememberMe"
+                        control={<Checkbox />}
+                        label="Remember me"
+                        labelPlacement="end"
+                    />
+                </Box>
+                <Box sx={{ mb: 2 }}>
+                    <Button type='submit' variant="contained" color='success' startIcon={<LoginIcon />} onClick={Signin} >
+                        เข้าสู่ระบบ
+                    </Button>
+                </Box>
+            </Box>
+        </Stack>
+    </>
+)
 }
 
 export default Login
