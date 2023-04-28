@@ -31,7 +31,8 @@ const createUser = (req, res) => {
             [phone, hashPassword, fname, lname, email, user_role, role_id],
             (err, result) => {
                 if (err) {
-                    console.log(err);
+                    console.log(err)
+                    res.send('error');
                 } else {
                     db.query("INSERT INTO users_meta (user_id, user_meta_key, user_meta_value) VALUES (?,?,?),(?,?,?),(?,?,?),(?,?,?),(?,?,?),(?,?,?) "
                         , [result.insertId, 'โรงเรียน', school, result.insertId, 'จังหวัด', province, result.insertId, 'ความคาดหวัง', expectation, result.insertId, 'ระดับชั้น', grade, result.insertId, 'ข้อตกลงและเงื่อนไข', termCondition, result.insertId, 'อาชีพ', parentJob]
@@ -39,7 +40,7 @@ const createUser = (req, res) => {
                             if (err) {
                                 console.log(err);
                             } else {
-                                res.send(resmeta)
+                                res.send("success")
                                 console.log(resmeta);
                             }
                         })
